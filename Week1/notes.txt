@@ -1,0 +1,18 @@
+1. 导入starter code进入eclipse时，要记得再import existing project时，选择copy projects into worksapce.相当于starter code下载保存
+到A位置，然后eclipse的workspace在B位置，我们把A的内容完全copy到B来，再继续coding.
+
+2. Find your hometown latitude and longitude: One way is to open up google maps and type in your city. Then, look in your browser address bar, and you can find the latitude and longitude numbers. For example, if I live in Perth, Australia then I can find out my latitude is -31.9 and my longitude is 115.8
+
+3. https://processing.org/reference/
+
+4. http://unfoldingmaps.org/javadoc/
+
+5. memory model !!!!!!! 多画图！！！！trace/drawing memory model,  trace code. 注意primitive type和object type.
+
+6. map1.zoomAndPanTo(zoomLevel, new Location(32.9f, -117.2f)); 如果不加这句话的话就不会有一个起始focus, 则显示的是world map.
+
+7. 注意method overloading和方法的return type之间是否有联系！！！！
+
+8. 注意在trace memory model的时候，还有和variable scope的联系！！！
+
+
