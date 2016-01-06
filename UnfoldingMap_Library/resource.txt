@@ -1,4 +1,10 @@
-http://unfoldingmaps.org/
+1. http://unfoldingmaps.org/
+
+2. Unfolding is a library to create interactive maps and geovisualizations in Processing and Java.
+就是说Unfolding map这个库他能够提供交互式的map以及地学可视化是基于Java和Processing library的.
+
+3. Java + Processing + UnfoldingMap, 这算是一套框架来实现这类应用。
+
 
 
 
