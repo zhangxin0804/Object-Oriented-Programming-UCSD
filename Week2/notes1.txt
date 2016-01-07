@@ -1,0 +1,105 @@
+1. GUIs in Java. Java的图形化用户接口/界面的library库有很多选择。比如，Swing, AWT, JavaFX, Processing.在这门课中
+我们选择Processing library, 因为Unfolding Map也是基于Java和Processing来实现的。
+也即 Java + Processing + Unfolding Map
+
+2. https://processing.org/reference/
+
+3. http://processing.github.io/processing-javadocs/core/
+
+4. 这门课选择Processing这个库作为实现GUIs in Java的基础。其中PApplet这个class是一个base class基类它是开发者提供给我们
+的GUI,当用户需要开发自己的图形用户application时，需要extends PApplet也就是继承这个基类，然后再根据Javadoc重新customize
+自己的application.
+
+5. setup()方法是用来configure canvas, draw()方法是用来display content. 比如在setup()中，我们load了一个server端的jpg文件
+作为Background image这里其实只是将jpg数据load进了memory, 如果不在draw()中进行绘制即调用image()方法，仍然不会显示该背景。
+注意：这两个方法，在开发新的application时是相当于override了基类PApplet类中的方法。
+
+https://processing.org/reference/setup_.html
+https://processing.org/reference/draw_.html
+https://processing.org/reference/loadImage_.html
+https://processing.org/reference/image_.html
+
+6. https://processing.org/tutorials/eclipse/, 如何在其他project中使用Processing library.
+
+7. 注意，如果background image本身的resolution长宽都很大，远大于Canvas中的width和height,我们可以调用PImage类产生的对象
+中的resize()方法，进行图片size的压缩。
+
+Resize the image to a new width and height. To make the image scale proportionally, use 0 as the value for 
+the wide or high parameter. For instance, to make the width of an image 150 pixels, and change the height using 
+the same proportion, use resize(150, 0).
+
+如上所述有个tricky的地方就是，我可以再width和height中，选择一个参数来specify最终我希望显示的宽或者长，另外一个参数由函数内部自己
+计算出来一个scale proportionally的值用于显示。还有一个tricky的地方就是，考虑到可能会drag canvase使得canvas的长宽发生变化，
+我们希望此时的background image size也自适应变化dynamically, 因此可以resize()的其中一个参数指定为canvas的width或者height,
+另一个参数仍然为0.
+
+
+https://processing.org/reference/PImage.html
+https://processing.org/reference/PImage_resize_.html
+https://processing.org/reference/height.html
+https://processing.org/reference/width.html
+
+
+8. 从PApplet这个base class中继承过来的height和width, 默认是200 * 200.
+
+9. 在图形用户应用开发中，我们对坐标位置的概念一定要敏感。无论是浏览器，还是Applet window等，避免不了User会进行拖拽拉大缩小窗口。
+因此，应用程序中对象的位置，最好是要弄成会随着canvas size变化而dynamically change !!!!因此，要利用相对坐标位置而非绝对坐标位置。
+
+https://processing.org/reference/ellipse_.html
+
+10. 注意Processing库中，对2D图形的绘制和着色的操作顺序，以及具体的API说明。注意，每一次执行fill()方法，之后的shape的着色都将是这个color
+, 如果希望不同的shape有不同的color, 就得每次用fill()重新开始一组操作。
+	
+	fill() affects all the shapes which are drawn post execution of this method. So if you draw ellipse (or any shape) 
+first and then write fill the drawn ellipse (or any shape) will not be filled. But if you fill() first and then 
+draw shapes, all subsequent shapes will be filled by that color.
+
+https://processing.org/reference/fill_.html
+
+11. Processing库中也有跟时间time有关的方法，注意查doc.比如second()方法。
+
+12. Unfolding is a library to create interactive maps and geovisualizations in Processing and Java.
+就是说Unfolding map这个库他能够提供交互式的map以及实现 地学可视化是基于Java和Processing library的。
+
+13. PApplet这个基类帮助我们bring up了一个window, 它相当于是一个GUI datatype, 我们自己的应用只需要继承PApplet, 然后customize
+我们自己的类就好了。
+
+14. Don't call draw() method on SimplePointMarker object.
+
+15. 字符串类型的浮点数，如果要转换成float类型的，可以利用API, 例如：float f1 = Float.parseFloat("1.234");
+
+16. How the countries look on a global map? Whar their coordinates? How they occupy space in the map?
+我们知道Unfolding map给我们提供了一个交互式的map, 在这个全局的map上，国家是如何表现的？国家的数据是啥样的，如何在map占据空间的呢？
+在Unfolding Map的data文件夹里有一个叫做 countries.geo.json的文件，表示了这些信息。
+
+17. 当我们有了关于国家country的一些信息，也即我们有了properties and locations, 我们的最终目的是要对每个国家有visual representation即
+在global map上，要对每个国家有不同的marker. 因此Unfolding Map给我们提供了一种实现思路。
+
+18. Features and Markers
+A Feature (API) contains the geographic data such as a single location for a point, or multiple locations for lines or polygons, and optionally some data properties.	A Marker (API) is the visual representations of a feature on a map.
+
+In the examples above, we create default markers automatically from the loaded geo data.
+
+List<Feature> features = GeoDataReader.loadData(this, dataFile);
+List<Marker> markers = MapUtils.createSimpleMarkers(features);
+
+This way, Unfolding creates simple markers in the default style. If you want to change the display style, or have extended functionality you need to create the markers on your own. There are two ways of doing that:
+
+http://unfoldingmaps.org/tutorials/markers-data-geojson.html
+
+19. static java.util.List<Marker>	createSimpleMarkers(java.util.List<Feature> features) 
+针对Features创建最简单的marker, 比如Features中的每一个Feature就是每一个国家相关的property信息，那么这个函数执行后，就是把每个国家
+给mark出来，其实就是用颜色覆盖在国家的Polygon上，标记出国家。
+
+
+
+
+
+
+
+
+
+
+
+
+
