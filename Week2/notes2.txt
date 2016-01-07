@@ -1,0 +1,33 @@
+1. We’ll organize our data into features and markers. A feature is a class of objects which stores one or more locations, its type, and any additional data properties associated with it. In our case, we will need a List of features which store the location of each earthquake in the past week, and additional properties associated with it (magnitude, age, elevation, title).
+
+To display the features, you will use markers. A marker is a class of objects that give us a visual representation of a feature, which at the simplest level is a dot at the corresponding latitude. A marker does not, however, have to be associated with a feature as all we need is a location to draw it. For example, if we just wish to draw a point at a major city (e.g. Tokyo) there's no need for a feature unless we wish to store other information about the city.
+
+2. 关于开发这种基于地理信息以及基于交互式map上的数据可视化应用程序时，我们需要知道框架本身提供给我们的是一个default的地图map，以及一系列强大的
+API. 对于地图而言，最重要的一个数据是坐标Location也就是经纬度坐标, 那么比如一个国家的话，在地图上占据的area是一个polygon, 也即由多个点location连接围城的area. 在Unfolding Map这个library下，地图上的数据是通过一个叫做Feature的类产生的对象所保存的。A feature stores one or more locations, its type, and additional data properties. 而地图上不同位置的不同标记也即display feature，是通过Marker Interface来呈现的。Marker interface for all markers to be drawn on to maps. A marker has at least one location, and properties. A marker can be drawn, selected, and tested if hit.
+
+3. 地里信息geo location以及其他一些properties的信息都是作为外部resources存在的，他们可以是比如json形式的数据存储，也可以是RSS feed流。可以对他们进行远程server的access, 也可以存储作为local files进行读入。
+http://earthquake.usgs.gov/earthquakes/feed/v1.0/index.php
+
+4. 对于不同形式的输入数据，Unfolding Map库中提供给了我们相应的API去解析这些文件。当然了，也可以自己编写相应文件的parser函数来实现。
+对于给定的API的解析函数，可以通过最后得到的Feature对象的getProperties()方法去查看得到了哪些property, 对于自己编写的parser来看。
+需要自己parse出信息后，调用putProperty()方法将property加入Feature. 具体可以参考ParseFeed.java这个手动编写的parser函数。
+
+5. 注意Features和Markers是相互关联的，Feature可以只表示一个特定的Location, 然后Marker就只针对这个Location来mark,那么其实就是PointFeature
+和SimplePointMarker比如EarthquakeCityMap.java中的实现。Feature也可以存储多个Location坐标信息，那么此时的Marker就针对这多个Location组成的polygon来mark,比如LifeExpectancy.java中实现的那样。
+
+6. 关于Feature和Marker的详细解释。
+https://www.coursera.org/learn/object-oriented-java/supplement/EUBIS/support-understanding-features-and-markers
+
+7. SimplePointMarker representing a single location. Use directly to display as simple circle, or extend it for custom styles.
+
+8. 要有一个overlay的概念，最底下一层是map, 然后是数据Features铺垫，然后是Markers进行数据呈现。Markers需要的一个主要信息就是对应Feature的
+Location信息，其次扩展的话Feature中的Properties信息，也可以作为创建Marker时传递进去，这样Markers就也拥有那些properties信息。
+
+-> SimplePointMarker(Location location, java.util.HashMap<java.lang.String,java.lang.Object> properties) 
+-> Creates a point marker for the given location and properties.
+
+9. 
+
+
+
+
