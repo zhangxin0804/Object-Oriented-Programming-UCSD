@@ -96,6 +96,10 @@ public class EarthquakeCityMap extends PApplet {
 	}
 	
 	private void shadeMarkers(List<Marker> markers){
+		// 注意：因为上面我们创建SimplePointerMarker的时候，不光传递了SimplePointFeature的location信息也传递了它的properties信息
+		// 因此，SimplePointerMarker中也有这些properties信息，根据这些properties信息，我们来对其进行一些visual层面的处理。但是需要注意
+		// 我们用的还是接口类型的list存储的这些SimplePointerMarker对象，使用的时候还需要向下cast.
+		
 	    // Here is an example of how to use Processing's color method to generate 
 	    // an int that represents the color yellow.  
 	    //int yellow = color(255, 255, 0);

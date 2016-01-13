@@ -59,28 +59,44 @@ This way, Unfolding creates simple markers in the default style. If you want to 
 
 http://unfoldingmaps.org/tutorials/markers-data-geojson.html
 
-
 最后再通过，map.addMarkers(countryMarkers);完成marker添加到map上。
 
-6. Feature可以只表示一个特定的Location, 然后Marker就只针对这个Location来mark,那么其实就是PointFeature
-和SimplePointMarker比如EarthquakeCityMap.java中的实现。Feature也可以存储多个Location坐标信息，那么此时的Marker就针对这多个Location组成的polygon来mark,比如LifeExpectancy.java中实现的那样。
 
 
-7. SimplePointMarker representing a single location. Use directly to display as simple circle, or extend it for custom styles.
+6. 根据Unfolding Map的文档，我们可以知道Feature这个class其实还有一些子类，比如PointFeature这个class. 比如我们在module3中，
+要涉及到对earthquake的数据可视化处理，根据RSS feed我们知道输入的这些地震数据，每一个地震源就是一个特定的经纬度locaiton, 因此
+用PointFeature来存储location和properties信息最适合不过了，因为PointFeature就是用来 stores a single location.
+借助已有的RSS parser, 我们变可以得到list of PointFeature类型的对象了。
+List<PointFeature> earthquakes = ParseFeed.parseEarthquake(this, earthquakesURL);
 
-8. 要有一个overlay的概念，最底下一层是map, 然后是数据Features铺垫，然后是Markers进行数据呈现。Markers需要的一个主要信息就是对应Feature的
-Location信息，其次扩展的话Feature中的Properties信息，也可以作为创建Marker时传递进去，这样Markers就也拥有那些properties信息。
-
--> SimplePointMarker(Location location, java.util.HashMap<java.lang.String,java.lang.Object> properties) 
--> Creates a point marker for the given location and properties.
-
-9. 
+	打开ParseFeed.java文件，我们就可以发现我们是如何手动创建PointFeature对象，进行RSS feed内容解析，然后add Properties比如magnitude,
+depth, title等，这些就是所谓的Properties. 值得！！多看看！！！
 
 
 
-19. static java.util.List<Marker>	createSimpleMarkers(java.util.List<Feature> features) 
-针对Features创建最简单的marker, 比如Features中的每一个Feature就是每一个国家相关的property信息，那么这个函数执行后，就是把每个国家
-给mark出来，其实就是用颜色覆盖在国家的Polygon上，标记出国家。
+	同理对应PointFeature类，我们也有一个SimplePointMarker类与之对应。之前接触的那个Marker其实是一个interface, 
+其中SimplePointerMarker是一个具体的类实现了Marker这个接口。之前是通过util中的API来创建的list of markers, 但是对于
+SimplePointerMarker我们需要自己创建。根据API中的SimplePointerMarker类的构造函数的使用，我们可以知道如何创建。
+	注意：SimplePointMarker representing a single location. Use directly to display as simple circle, or extend it for 
+custom styles.
+
+SimplePointMarker() 
+          Creates an empty point marker.
+SimplePointMarker(Location location) 
+          Creates a point marker for the given location.
+SimplePointMarker(Location location, java.util.HashMap<java.lang.String,java.lang.Object> properties) 
+          Creates a point marker for the given location and properties.
+
+
+	我们创建SimplePointerMarker的时候，不光传递了SimplePointFeature的location信息也传递了它的properties信息
+因此，SimplePointerMarker中也有这些properties信息，根据这些properties信息，我们来对其进行一些visual层面的处理。
+
+
+7. 要有一个overlay的概念，最底下一层是map, 然后是数据Features铺垫，然后是Markers进行数据呈现。
+
+
+
+
 
 
 
