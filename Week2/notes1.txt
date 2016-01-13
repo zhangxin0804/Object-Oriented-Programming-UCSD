@@ -23,23 +23,31 @@ https://processing.org/reference/image_.html
 
 6. https://processing.org/tutorials/eclipse/, 如何在其他project中使用Processing library.
 
-7. 注意，如果background image本身的resolution长宽都很大，远大于Canvas中的width和height,我们可以调用PImage类产生的对象
-中的resize()方法，进行图片size的压缩。
+7. 注意：如果background image本身的resolution长宽都很大，远大于Canvas中的width和height,我们可以调用PImage类产生的对象
+中的resize()方法，进行图片size的压缩。比如一张图片为 1280*720, 当前canvas大小为 200*200. 如果我们调用下面语句，img.resize(200, 200);
+实现的就是在200*200的大小范围的canvas上将原先1280*720的图片内容显示出来，会有失真但是所有内容部分都保留存在。
+	但是这样的一种resize在scale上并不是proportionally的，意思就是说比如长从1280变成200后调整的比例，与宽从720变成200后调整的比例并不一样
+因此resize()还可以这么用，to make the image scale proportionally, use 0 as the value for the wide or high parameter.
+For instance, to make the width of an image 150 pixels, and change the height using the same proportion, use 
+resize(0, 150).也就是说将原先的图片resize后，我的新size的height为150，也就是说这个150的范围内要能够显示所有原先图片纵向的内容。那么相当于
+height从720变成了150，这里有一个比例。然后，由于我们width部分指定的是0，也就是说width部分由API去按照之前高度resize的比例去计算，但是假如
+根据比例计算出来的width如果要比我当前canvas的width大的话，那就意味着我这个canvas没法显示全横向的内容信息了。
 
-Resize the image to a new width and height. To make the image scale proportionally, use 0 as the value for 
-the wide or high parameter. For instance, to make the width of an image 150 pixels, and change the height using 
-the same proportion, use resize(150, 0).
+	如上所述有个tricky的地方就是，我可以再width和height中，选择一个参数来specify最终我希望显示的宽或者长，另外一个参数由函数内部自己
+计算出来一个scale proportionally的值，也即我们的canvas最好能有这个值的width或者height, 否则就有可能会显示不完整所有信息！！
 
-如上所述有个tricky的地方就是，我可以再width和height中，选择一个参数来specify最终我希望显示的宽或者长，另外一个参数由函数内部自己
-计算出来一个scale proportionally的值用于显示。还有一个tricky的地方就是，考虑到可能会drag canvase使得canvas的长宽发生变化，
-我们希望此时的background image size也自适应变化dynamically, 因此可以resize()的其中一个参数指定为canvas的width或者height,
-另一个参数仍然为0.
+还有一个tricky的地方就是，考虑到可能会drag canvase使得canvas的长宽发生变化，我们希望此时的background image size也自适应变化dynamically, 因此可以在resize()函数中，参数用width和height表示，另外
+
+		img.resize(0, height);			//resize loaded image to full height of canvas
+		image(img, 0, 0);			//display image
+这两句话一个resize一个display, 要一起在draw()中调用才能保证自适应动态变化。
 
 
 https://processing.org/reference/PImage.html
 https://processing.org/reference/PImage_resize_.html
 https://processing.org/reference/height.html
 https://processing.org/reference/width.html
+
 
 
 8. 从PApplet这个base class中继承过来的height和width, 默认是200 * 200.
@@ -66,7 +74,7 @@ https://processing.org/reference/fill_.html
 13. PApplet这个基类帮助我们bring up了一个window, 它相当于是一个GUI datatype, 我们自己的应用只需要继承PApplet, 然后customize
 我们自己的类就好了。
 
-这里其实可以了解一下Java Applet也即Java小应用程序applet. Applet或Java小应用程序是一种在Web环境下，运行于客户端的Java程序组件。
+	这里其实可以了解一下Java Applet也即Java小应用程序applet. Applet或Java小应用程序是一种在Web环境下，运行于客户端的Java程序组件。
 Applet必须运行于某个特定的“容器”，这个容器可以是浏览器本身，也可以是通过各种插件，或者包括支持Applet的移动设备在内的其他各种程序来运行。与一般的Java应用程序不同，Applet不是通过main方法来运行的, 注意这里！！！
 
 下面这个例子就是类似UCSD-OOP中的例子，这也就是为什么我们看不到main函数在哪儿，但是extends PApplet后实现一些函数后就可以运行Java applet.
@@ -77,28 +85,6 @@ https://zh.wikipedia.org/wiki/Java_applet
 
 15. 字符串类型的浮点数，如果要转换成float类型的，可以利用API, 例如：float f1 = Float.parseFloat("1.234");
 
-16. How the countries look on a global map? Whar their coordinates? How they occupy space in the map?
-我们知道Unfolding map给我们提供了一个交互式的map, 在这个全局的map上，国家是如何表现的？国家的数据是啥样的，如何在map占据空间的呢？
-在Unfolding Map的data文件夹里有一个叫做 countries.geo.json的文件，表示了这些信息。
-
-17. 当我们有了关于国家country的一些信息，也即我们有了properties and locations, 我们的最终目的是要对每个国家有visual representation即
-在global map上，要对每个国家有不同的marker. 因此Unfolding Map给我们提供了一种实现思路。
-
-18. Features and Markers
-A Feature (API) contains the geographic data such as a single location for a point, or multiple locations for lines or polygons, and optionally some data properties.	A Marker (API) is the visual representations of a feature on a map.
-
-In the examples above, we create default markers automatically from the loaded geo data.
-
-List<Feature> features = GeoDataReader.loadData(this, dataFile);
-List<Marker> markers = MapUtils.createSimpleMarkers(features);
-
-This way, Unfolding creates simple markers in the default style. If you want to change the display style, or have extended functionality you need to create the markers on your own. There are two ways of doing that:
-
-http://unfoldingmaps.org/tutorials/markers-data-geojson.html
-
-19. static java.util.List<Marker>	createSimpleMarkers(java.util.List<Feature> features) 
-针对Features创建最简单的marker, 比如Features中的每一个Feature就是每一个国家相关的property信息，那么这个函数执行后，就是把每个国家
-给mark出来，其实就是用颜色覆盖在国家的Polygon上，标记出国家。
 
 
 

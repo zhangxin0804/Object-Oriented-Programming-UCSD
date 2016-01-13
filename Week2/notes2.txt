@@ -1,22 +1,70 @@
-1. We’ll organize our data into features and markers. A feature is a class of objects which stores one or more locations, its type, and any additional data properties associated with it. In our case, we will need a List of features which store the location of each earthquake in the past week, and additional properties associated with it (magnitude, age, elevation, title).
+
+	关于开发这种基于地理信息以及基于交互式map上的数据可视化应用程序时，我们需要知道框架本身提供给我们的是一个default的地图map，有点儿像当时526
+游戏开发时的那些tile map. 然后还提供了一系列强大的API. 对于这类应用程序的开发，最重要的一个数据就是经纬度坐标location. 那么比如一个国家的话，
+在地图上占据的area是一个polygon也即有多个点location连接围城的area. 当我们确定了位置后，我们就需要去对这个位置或者区域实现visualizaton. 在
+Unfolding Map的开发中，location以及location附属的properties和他们的visual representation是分开实现的。在Unfolding Map库中，已经有
+实现好了的类来帮助我们组织并实现这些信息。
+
+1. 在Unfolding Map这个library下，地图上的数据是通过一个叫做Feature的类产生的对象所保存的。A feature stores one or more locations, its type, and additional data properties. 而地图上不同位置的不同visual representation也即display feature，是通过Marker Interface来呈现的。Marker interface for all markers to be drawn on to maps. A marker has at least one location, and properties. A marker can be drawn, selected, and tested if hit.
+
+
+2. We’ll organize our data into features and markers. A feature is a class of objects which stores one or more locations, its type, and any additional data properties associated with it. In our case, we will need a List of features which store the location of each earthquake in the past week, and additional properties associated with it (magnitude, age, elevation, title).
 
 To display the features, you will use markers. A marker is a class of objects that give us a visual representation of a feature, which at the simplest level is a dot at the corresponding latitude. A marker does not, however, have to be associated with a feature as all we need is a location to draw it. For example, if we just wish to draw a point at a major city (e.g. Tokyo) there's no need for a feature unless we wish to store other information about the city.
 
-2. 关于开发这种基于地理信息以及基于交互式map上的数据可视化应用程序时，我们需要知道框架本身提供给我们的是一个default的地图map，以及一系列强大的
-API. 对于地图而言，最重要的一个数据是坐标Location也就是经纬度坐标, 那么比如一个国家的话，在地图上占据的area是一个polygon, 也即由多个点location连接围城的area. 在Unfolding Map这个library下，地图上的数据是通过一个叫做Feature的类产生的对象所保存的。A feature stores one or more locations, its type, and additional data properties. 而地图上不同位置的不同标记也即display feature，是通过Marker Interface来呈现的。Marker interface for all markers to be drawn on to maps. A marker has at least one location, and properties. A marker can be drawn, selected, and tested if hit.
+关于Feature和Marker的详细解释。
+https://www.coursera.org/learn/object-oriented-java/supplement/EUBIS/support-understanding-features-and-markers
 
-3. 地里信息geo location以及其他一些properties的信息都是作为外部resources存在的，他们可以是比如json形式的数据存储，也可以是RSS feed流。可以对他们进行远程server的access, 也可以存储作为local files进行读入。
+
+
+3. 地里信息geo location以及其他一些properties的信息都是作为外部resources存在的，他们可以是比如json形式的地里数据存储，也可以是RSS feed流。可以对他们进行远程server的access, 也可以存储作为local files进行读入。
 http://earthquake.usgs.gov/earthquakes/feed/v1.0/index.php
 
-4. 对于不同形式的输入数据，Unfolding Map库中提供给了我们相应的API去解析这些文件。当然了，也可以自己编写相应文件的parser函数来实现。
-对于给定的API的解析函数，可以通过最后得到的Feature对象的getProperties()方法去查看得到了哪些property, 对于自己编写的parser来看。
-需要自己parse出信息后，调用putProperty()方法将property加入Feature. 具体可以参考ParseFeed.java这个手动编写的parser函数。
+	How the countries look on a global map? Whar their coordinates? How they occupy space in the map?
+我们知道Unfolding map给我们提供了一个交互式的map, 在这个全局的map上，国家是如何表现的？国家的数据是啥样的，如何在map占据空间的呢？
+在Unfolding Map的data文件夹里有一个叫做 countries.geo.json的文件，表示了这些信息。
 
-5. 注意Features和Markers是相互关联的，Feature可以只表示一个特定的Location, 然后Marker就只针对这个Location来mark,那么其实就是PointFeature
+4. 对于不同形式的输入数据，Unfolding Map库中提供给了我们相应的API去解析这些文件。比如对于以JSON形式存储的geolocation信息，有相应
+的API可以 Parses a GeoJSON String and creates features for them. 换句话说，API已经帮助我们得到了一组Feature对象的集合。
+可以通过最后得到的Feature对象的getProperties()方法去查看得到了哪些property. 需要注意，API是固定的，那么要通过这种方式解析就要保证
+输入数据的文件的格式什么都要正确，才能被正确解析出来，多看看tutorial和范例来了解这些信息。
+
+http://unfoldingmaps.org/javadoc/de/fhpotsdam/unfolding/data/GeoJSONReader.html
+Class GeoJSONReader
+static java.util.List<Feature>	loadData(processing.core.PApplet p, java.lang.String fileName) 
+
+注意：这个API内部解析GeoJSON时，由于JSON文件中的location信息并没有放在properties中，因此我之后调用Feature的getProperties()并没有
+得到location信息，但其实他内部是去解析JSON文件中的geometry中的coordinates, 因此得到的Feature对象中还是有坐标信息的。
+
+
+	当然了，也可以自己编写相应文件的parser函数来实现。对于自己编写的parser来看,需要自己parse出信息后，调用putProperty()
+方法将property加入Feature. 具体可以参考工程中ParseFeed.java这个手动编写的parser函数。
+
+
+
+5. 当我们有了Features信息后，接下来要做的就是能够得到针对这些Feature的Marker, 因为最终是这些marker在完成visual representation.
+
+A Feature (API) contains the geographic data such as a single location for a point, or multiple locations for lines or polygons, and optionally some data properties.	
+
+A Marker (API) is the visual representations of a feature on a map.
+
+下面这是一个典型的使用example, 具体可以参考 LifeExpectancy.java文件。
+In the examples above, we create default markers automatically from the loaded geo data.
+
+
+List<Feature> features = GeoDataReader.loadData(this, dataFile);
+List<Marker> markers = MapUtils.createSimpleMarkers(features);
+
+This way, Unfolding creates simple markers in the default style. If you want to change the display style, or have extended functionality you need to create the markers on your own. There are two ways of doing that:
+
+http://unfoldingmaps.org/tutorials/markers-data-geojson.html
+
+
+最后再通过，map.addMarkers(countryMarkers);完成marker添加到map上。
+
+6. Feature可以只表示一个特定的Location, 然后Marker就只针对这个Location来mark,那么其实就是PointFeature
 和SimplePointMarker比如EarthquakeCityMap.java中的实现。Feature也可以存储多个Location坐标信息，那么此时的Marker就针对这多个Location组成的polygon来mark,比如LifeExpectancy.java中实现的那样。
 
-6. 关于Feature和Marker的详细解释。
-https://www.coursera.org/learn/object-oriented-java/supplement/EUBIS/support-understanding-features-and-markers
 
 7. SimplePointMarker representing a single location. Use directly to display as simple circle, or extend it for custom styles.
 
@@ -27,6 +75,12 @@ Location信息，其次扩展的话Feature中的Properties信息，也可以作�
 -> Creates a point marker for the given location and properties.
 
 9. 
+
+
+
+19. static java.util.List<Marker>	createSimpleMarkers(java.util.List<Feature> features) 
+针对Features创建最简单的marker, 比如Features中的每一个Feature就是每一个国家相关的property信息，那么这个函数执行后，就是把每个国家
+给mark出来，其实就是用颜色覆盖在国家的Polygon上，标记出国家。
 
 
 
