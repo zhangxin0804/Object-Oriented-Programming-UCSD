@@ -10,6 +10,8 @@
 的GUI,当用户需要开发自己的图形用户application时，需要extends PApplet也就是继承这个基类，然后再根据Javadoc重新customize
 自己的application.
 
+
+
 5. setup()方法是用来configure canvas, draw()方法是用来display content. 比如在setup()中，我们load了一个server端的jpg文件
 作为Background image这里其实只是将jpg数据load进了memory, 如果不在draw()中进行绘制即调用image()方法，仍然不会显示该背景。
 注意：这两个方法，在开发新的application时是相当于override了基类PApplet类中的方法。
@@ -63,6 +65,13 @@ https://processing.org/reference/fill_.html
 
 13. PApplet这个基类帮助我们bring up了一个window, 它相当于是一个GUI datatype, 我们自己的应用只需要继承PApplet, 然后customize
 我们自己的类就好了。
+
+这里其实可以了解一下Java Applet也即Java小应用程序applet. Applet或Java小应用程序是一种在Web环境下，运行于客户端的Java程序组件。
+Applet必须运行于某个特定的“容器”，这个容器可以是浏览器本身，也可以是通过各种插件，或者包括支持Applet的移动设备在内的其他各种程序来运行。与一般的Java应用程序不同，Applet不是通过main方法来运行的, 注意这里！！！
+
+下面这个例子就是类似UCSD-OOP中的例子，这也就是为什么我们看不到main函数在哪儿，但是extends PApplet后实现一些函数后就可以运行Java applet.
+https://zh.wikipedia.org/wiki/Java_applet
+
 
 14. Don't call draw() method on SimplePointMarker object.
 

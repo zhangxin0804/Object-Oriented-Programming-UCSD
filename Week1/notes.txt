@@ -15,4 +15,11 @@
 
 8. 注意在trace memory model的时候，还有和variable scope的联系！！！
 
+9. Object reference类型的变量，有的时候会由于too loose而发生一些意想不到的结果。比如一个类中有一个private成员变量，是一个数组类型的
+object reference. 然后呢这个instance variable在构造函数中指向了一个数组对象，而该数组对象的最初创建是在另一个函数中。然后借由另一个
+函数中的object reference传入构造函数中作为参数，完成指向。正因为数组其实是对象，这样就导致了我们可以在另一个函数中改变实际数组中的值，
+又因为类中的private成员变量也指向它，因此也会得到新的值。但其实我们希望的是类具有一定encapsualtion性。
+
+10. 
+
 
