@@ -1,0 +1,21 @@
+1. 学会画UML类图。Use UML Diagrams to display class hierarchies, 一些公司面试OOD环节时，可以画UML类图来解释。
+
+2. 从实际软件开发角度来看，我们之所以需要继承inheritance, 是因为我们希望【1】Keep common behavior in one class，consistency问题。【2】 Split different behavior into separate classes, 【3】Keep all of the objects in a single data structure, 记住subclass is a superclass也即
+is-a 关系。
+
+3. 搞清楚子类到底能从父类那里继承inherit些什么？
+
+4. 注意compile-time和run-time期间发生的不同。
+
+5. Overloading是一种static binding, 而overriding是一种dynamic binding（多态）.
+
+6. 关于Casting转型，有向上转型automatic type promotion, 比如int to double, 比如Superclass ref = new Subclass()
+还有向下转型 explicit casting, 比如double强制转换为int, 比如 Subclass ref = (Subclass)superRef
+
+7. Java提供了一种 run-time check of is-a relationship, 利用关键字 instanceof, 比如 if( s instanceof Student )即判断rum-time时
+s是否为Student对象，再去做相应的处理！！！ instanceof 这个关键字很有用！！掌握以下！！
+
+8. 注意调用super and then method这个过程是发生在compile-time 是一种static binding. 调用this and then method, 这个过程是发生在run-
+time.具体看看面试基础知识整理笔记.
+
+9. 
