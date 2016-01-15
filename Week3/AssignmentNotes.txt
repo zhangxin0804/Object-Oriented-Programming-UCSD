@@ -11,4 +11,23 @@ method will be called automatically for you when you add the markers to the map.
 		List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
 		countryMarkers = MapUtils.createSimpleMarkers(countries);
 
-4. 
+4. 针对这个作业，本来我们读进来的是list of PointFeature, 因此对应的是用SimplePointMarker来实现visual representation. 但是在这个实际
+的应用中，我们希望能够展现出发生在不同地方的earthquake, 也就是对应着不同的marker来表示。同时，为了更好的方便我们理解继承inheritance和多态
+polymorphism的概念。
+
+5. 我们来设计class hierarchy,首先肯定得有LandQuakeMarker和OceanQuakeMarker, 因为我们要在不同的地方有不同的展示。这两个肯定是实际的
+class, 但是我们也能够很明显的直到，这两个类中，他们是有很多common behavior的，比如都有地震的magnitude信息，depth信息等等，但是
+又希望Split different behavior into separate classes比如发生在不同的地方的marker，我希望visual的表示也不同，因此一些绘制visual
+representation的函数，需要声明成abstract即抽象方法，从而我们可以很明显的直到，需要一个抽象类也即EarthquakeMarker Class, 同时
+这个抽象类要继承自SimplePointMarker类。
+
+SimplePointMarker extends AbstractMarker
+(Abstract Class)EarthquakeMarker extends SimplePointMarker
+LandQuakeMarker extends EarthquakeMarker
+OceanQuakeMarker extends EarthquakeMarker
+
+6. 注意关于countries的marker中，根据输入文件可以知道有些国家的Feature type是MultiPolygon, 比如美国United States,它其实是由多个
+polygon area组成的！！需要注意！！因此，在我们用API创建SimpleMarker时，API内部应该是会根据不同的Feature Type创建不同的Marker比如
+对于MultiPolygon，是创建 MultiMarker. 对于一般的Polygon, 是创建SimplePolygonMarker
+
+7. 
