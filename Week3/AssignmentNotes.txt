@@ -30,7 +30,8 @@ OceanQuakeMarker extends EarthquakeMarker
 polygon area组成的！！需要注意！！因此，在我们用API创建SimpleMarker时，API内部应该是会根据不同的Feature Type创建不同的Marker比如
 对于MultiPolygon，是创建 MultiMarker. 对于一般的Polygon, 是创建SimplePolygonMarker
 
-7.
+7. Unfolding Map的功能还是很强大的，可以根据给定的经纬度坐标或者Location对象来判断给定的position是否在某个Marker内！！！如下：
+
 boolean	isInsideByLocation(float latitude, float longitude) 
 	--Checks whether given position is inside this marker, according to the shape defined by the marker's locations.
 
@@ -41,4 +42,13 @@ This is only in AbstractShapeMarker and not in AbstractMarker (nor Marker) as on
 whether a point is inside. All others (Point and Lines) have no area, and thus an inside check always have to return false
 . (注意：SimplePolygonMarker是AbstractShapeMarker的子类，因此也有这个方法。)
 
-8. 
+8. 注意，比如SimplePointMarker这些对象中也有Location信息和Properties信息，可以通过方法得到。但是这些信息不是新copy的信息。根据
+ParseFeed.java文件可知，Location对象信息和Properties对象信息，最初的创建都是随着PointFeature创建的，因此在针对PointFeature创建
+SimplePointMarker时，传递给SimplePointMarker的信息也是同一份信息而不是新copy的信息！
+
+9. radius这个property是在EarthquakeMarker.java中的构造函数内，加入的。
+
+10. 
+
+
+
