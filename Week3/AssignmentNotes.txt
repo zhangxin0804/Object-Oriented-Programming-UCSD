@@ -30,4 +30,15 @@ OceanQuakeMarker extends EarthquakeMarker
 polygon area组成的！！需要注意！！因此，在我们用API创建SimpleMarker时，API内部应该是会根据不同的Feature Type创建不同的Marker比如
 对于MultiPolygon，是创建 MultiMarker. 对于一般的Polygon, 是创建SimplePolygonMarker
 
-7. 
+7.
+boolean	isInsideByLocation(float latitude, float longitude) 
+	--Checks whether given position is inside this marker, according to the shape defined by the marker's locations.
+
+boolean	isInsideByLocation(Location location)  
+
+	Checks whether given position is inside this marker, according to the shape defined by the marker's locations. Note: 
+This is only in AbstractShapeMarker and not in AbstractMarker (nor Marker) as only shape markers have an area to test 
+whether a point is inside. All others (Point and Lines) have no area, and thus an inside check always have to return false
+. (注意：SimplePolygonMarker是AbstractShapeMarker的子类，因此也有这个方法。)
+
+8. 
