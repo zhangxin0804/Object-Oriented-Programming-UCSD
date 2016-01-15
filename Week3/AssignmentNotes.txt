@@ -1,0 +1,14 @@
+
+1. 在 SimplePointMarker等类中，有一个draw()方法. 我们不用去主动调用这个方法。Do not call the draw method on the markers. That
+method will be called automatically for you when you add the markers to the map.
+
+2. You will write code in four different new classes: an abstract class named EarthquakeMarker and two classes extending it: LandQuakeMarker and OceanQuakeMarker, as well as another class CityMarker.
+
+3. 针对不同的输入文件以及不同的格式，我们要有针对性的选择解析的方式。比如这次作业中，给定了city-data.json和countries.geo.gson两个文件，
+这两个文件的格式都是标准的。因此，在代码中可以直接调用Unfolding Map为我们实现好的API来解析，得到相应的Features. 然后关于Markers的话，
+具体还是要看你是要呈现什么样的数据的Feature，比如countries信息，它的feature type是polygon, 那么我们可以考虑用已有API，对其创建Marker
+也即
+		List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
+		countryMarkers = MapUtils.createSimpleMarkers(countries);
+
+4. 

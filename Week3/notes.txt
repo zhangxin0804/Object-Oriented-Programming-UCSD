@@ -18,4 +18,4 @@ s是否为Student对象，再去做相应的处理！！！ instanceof 这个关
 8. 注意调用super and then method这个过程是发生在compile-time 是一种static binding. 调用this and then method, 这个过程是发生在run-
 time.具体看看面试基础知识整理笔记.
 
-9. 
+9. 注意abstract class和interface的差别、使用场合。
