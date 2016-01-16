@@ -48,7 +48,10 @@ SimplePointMarker时，传递给SimplePointMarker的信息也是同一份信息�
 
 9. radius这个property是在EarthquakeMarker.java中的构造函数内，加入的。
 
-10. 
+10. PGraphics这个类继承自PImage类。
+https://processing.org/reference/PGraphics.html
+
+
 
 
 
