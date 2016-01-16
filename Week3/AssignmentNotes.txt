@@ -51,7 +51,17 @@ SimplePointMarker时，传递给SimplePointMarker的信息也是同一份信息�
 10. PGraphics这个类继承自PImage类。
 https://processing.org/reference/PGraphics.html
 
+11. 在Unfolding Map库中，虽然我们读入的外部数据文件中，给的都是实际生活当中的geo location信息也即经纬度坐标。但是读进来后，底层内部已经
+帮助我们实现了conversion, 因为我们的map是一个2D平面，因此相当于map上是一个local coordinate system, 所以底层经纬度已经被转换成了这个
+local coordinate system的坐标了。需要注意！！！
 
+12. 在实现不同Marker的绘制draw方法时，because you are no longer working in the PApplet class, you will need to use the
+PGraphics object for drawing. You can call the same methods you were calling when you were drawing on the PApplet, but
+you call them on the pg object. 
 
+13. 不同的marker有不同的visual representation, 也就是需要去实现特定的draw()方法，但是实现后，我们不需要在marker对象上调用这些方法。
+只要讲marker add进map后，会自动调用这些方法。
+
+14. 
 
 
