@@ -1,0 +1,15 @@
+1. 注意 procedural programming and event-driven programming的区别。
+
+2. 一些典型的交互interactive行为, 比如 keyboard响应，mouse click响应，mouse hover到相应内容上的信息展示等等。这些都属于event-driven
+programming. 事件驱动编程模型，in computer programming, event-driven programming is a programming paradigm in which the flow
+of the program is determined by events such as user actions (mouse clicks, key presses), sensor outputs, or messages from
+other programs/threads. 
+
+
+3. GUI编程以及基于JS的web开发，多采用event-driven programming paradigm. Event-driven programming is the dominant paradigm used in graphical user interfaces (GUI) and other applications (e.g. JavaScript web applications) that are centered on performing certain actions in response to user input.
+具体的实现涉及到比如，event listerner事件监听，event handler, 注册callback函数等等。
+
+4.  一般来说，我们会利用已有的框架或者library来进行event-driven programming, 就是说内部的机制是帮我们实现好了的，我们只是调用一些函数来实现
+相应功能。
+
+5. 
