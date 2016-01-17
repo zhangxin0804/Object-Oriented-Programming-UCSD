@@ -12,4 +12,16 @@ other programs/threads.
 4.  一般来说，我们会利用已有的框架或者library来进行event-driven programming, 就是说内部的机制是帮我们实现好了的，我们只是调用一些函数来实现
 相应功能。
 
-5. 
+5. 在我们当前project的组成中，即Processing + Unfolding Map + Java, 我们知道我们的Unfolding Map是基于Processing 
+Library的基础上开发的。因此，比如Unfolding Map库中的 MapUtils.createDefaultEventDispatcher(this, map);
+它其实底层已经帮助我们，handle一些default的events,比如底层会去帮助我们监听一些default events.
+
+6. PApplet类中本身有一些和event处理相关的函数，比如 keyPressed(KeyEvent event) 等等。我们可以customized这些函数，利用Java的继承和多态的
+概念，我们对方法实现overriding,来得到效果。
+
+7. 鼠标在map上的位置, 可以通过mouseX和mouseY来获得坐标，这是从PApplet中继承过来的 public instance variable.
+
+8. PApplet类，实际上implements了2个interface, 一个是MouseListener接口，一个是KeyListener接口。比如MouseListener接口中一些未实现的
+方法有，public void mousePressed(){}, public void mouseClicked(){}, public void mouseRealeased(){}等。
+
+9. 
