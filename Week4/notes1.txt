@@ -30,5 +30,21 @@ Library的基础上开发的。因此，比如Unfolding Map库中的 MapUtils.cr
 Processing的基础上实现开发的。因此，event handling相关的code应该是有两部分，一部分是Processing library底层实现的，另一部分是
 Unfolding Map底层实现的。这就是为什么，我们override了PApplet类中的比如keyPressed()方法并且自定义实现后，我们按键后，UnfoldingMap那边
 还是会进行zoom in和zoom out, 因为那边Unfolding Map的底层仍然也对键盘有响应。
+别忘了，我们设置过 MapUtils.createDefaultEventDispatcher(this, map);
 
-11. 
+11. 注意，List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
+比如这样一句话，虽然countries是Feature类型存储的，但实际上内部输出后他们的class类别是PointFeature, 只不过PointFeature是Feature的子类。
+但是我们用父类的类型来存储也是可以的，实际用的时候，可以向下cast成PointFeature再调用相应方法！
+
+12. 不管是对于Processing库还是Unfolding Map库，在event-driven programming的paradigm中，关于event的监听listener是底层built-in代码
+已经帮助我们实现好的。我们要做的就是重新customized一些event handler函数，这可以通过子类override一些方法来实现。
+
+13. 
+
+
+
+
+
+
+
+
