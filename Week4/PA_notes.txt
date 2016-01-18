@@ -7,5 +7,18 @@ A click on a city marker will lead to only that city and earthquakes which affec
 Clicking once again on that marker will bring the rest of the map’s markers back.
 Clicking on an earthquake marker, only cities potentially affected by that earthquake will be displayed.
 
-2. 
+2. 相比Module 4而言，在module 5的源文件中，我们可以发现多了一个CommonMarker抽象类的定义。同时，CityMarker是继承自CommonMarker, 且
+EarthquakeMarker也继承自CommonMarker。我们来分析一下，在module4中，对于不同的城市CityMarker我们希望它仅仅是完成对于City的那些坐标
+用不同的方式去绘制呈现不同的visual representation. 而在module5中，由于我们要在city marker和earthquaker marker上完成一些
+event相关的操作。同时我们意识到，此时city和earthquake在最后的visual representation呈现上是有一定关系的。因此，我们在对这两个类
+进一步抽象得到CommonMarker这个抽象类，这样来重新定义class hierarchy. 还是通过父类(虽然这里是抽象类)来定义一些common things, 然后
+对于子类我们split different methods for seperate subclass.
+
+3. We introduced CommonMarker because in this assignment there will be some drawing functionality that is common to all
+markers on our map, so we didn’t want to have to duplicate code between EarthquakeMarker and CityMarker. This process of
+restructuring our code is known as refactoring and it is very common in software engineering.
+
+4. Code Refactor代码重构。
+
+5. 
 
