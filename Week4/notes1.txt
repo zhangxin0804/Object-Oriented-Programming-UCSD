@@ -39,7 +39,10 @@ Unfolding Map底层实现的。这就是为什么，我们override了PApplet类�
 12. 不管是对于Processing库还是Unfolding Map库，在event-driven programming的paradigm中，关于event的监听listener是底层built-in代码
 已经帮助我们实现好的。我们要做的就是重新customized一些event handler函数，这可以通过子类override一些方法来实现。
 
-13. 
+13. 注意pg.pushStyle()和pg.popStyle()的搭配使用，比如有些实现方面的效果，需要改变一些参数啥的，但是如果直接改变的话，那整体visual
+representation的其他部分也会跟着改变，因此每次再对特定部分的视觉效果调整时，可以把之前的暂存一下相当于入栈，最后再出栈还原。
+
+14. 
 
 
 
