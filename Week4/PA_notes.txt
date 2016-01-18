@@ -22,3 +22,9 @@ restructuring our code is known as refactoring and it is very common in software
 
 5. 
 
+When an earthquake’s marker is selected, all cities within the threat circle of this earthquake are displayed on the map and all other cities and earthquakes are hidden. You are given an implementation of the threatCircle() method in the EarthquakeMarker class.
+
+When a city’s marker is selected, all earthquakes which contain that city in their threat circle are displayed on the map and all other cities and earthquakes are hidden. You are given an implementation of the threatCircle() method in the EarthquakeMarker class.
+
+6. 
+
