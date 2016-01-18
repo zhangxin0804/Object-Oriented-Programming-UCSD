@@ -24,4 +24,11 @@ Library的基础上开发的。因此，比如Unfolding Map库中的 MapUtils.cr
 8. PApplet类，实际上implements了2个interface, 一个是MouseListener接口，一个是KeyListener接口。比如MouseListener接口中一些未实现的
 方法有，public void mousePressed(){}, public void mouseClicked(){}, public void mouseRealeased(){}等。
 
-9. 
+9. UnfoldingMap这个类 implements 了两个接口：MapEventListener和java.util.EventListener
+
+10. 事实上，在我们这门课中，由于有两个built-in的Library一个是Processing一个是Unfolding Map, 我们也知道Unfolding Map也是基于
+Processing的基础上实现开发的。因此，event handling相关的code应该是有两部分，一部分是Processing library底层实现的，另一部分是
+Unfolding Map底层实现的。这就是为什么，我们override了PApplet类中的比如keyPressed()方法并且自定义实现后，我们按键后，UnfoldingMap那边
+还是会进行zoom in和zoom out, 因为那边Unfolding Map的底层仍然也对键盘有响应。
+
+11. 
