@@ -1,0 +1,11 @@
+1. 目标是增加一些基于map的交互功能。
+When hovers over a city marker, your map will display a box with the city’s name, country, and population. 
+When hovers over an earthquake marker, your map will display the title of the earthquake (including its magnitude and
+region).
+
+A click on a city marker will lead to only that city and earthquakes which affect it being displayed on the map. 
+Clicking once again on that marker will bring the rest of the map’s markers back.
+Clicking on an earthquake marker, only cities potentially affected by that earthquake will be displayed.
+
+2. 
+
