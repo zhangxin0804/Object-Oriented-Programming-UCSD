@@ -1,3 +1,35 @@
 1. 注意在做binary search的时候，再计算mid时，要避免Overflow的情况出现。注意代码应该怎么写。 mid = start + ((end-start) >> 1)
 
-2.  
+2. 选择排序selection sort
+
+	/** Sort an array of ints using Selection Sort */
+	public static void selectionSort( int[] vals )   {
+		
+		int minI;
+		for ( int i=0; i < vals.length-1 ; i++ ) {
+			minI = i;
+			
+			for ( int j=i; j < vals.length; j++ ) {
+				if ( vals[j] < vals[minI] ) {
+					minI = j ;
+				}
+			}
+			
+			swap(vals, minI, i);
+		}
+		
+	}
+
+3. 插入排序 insertion sort
+
+	public static void mysterySort( int[] vals )    {
+		  int currInd;
+		  for ( int pos=1; pos < vals.length ; pos++ ) {
+		    currInd = pos ;
+		    while ( currInd > 0 && 
+			    vals[currInd] < vals[currInd-1] ) {
+		      swap(vals, currInd, currInd-1);
+		      currInd = currInd - 1;
+		    }
+		  }
+		}
