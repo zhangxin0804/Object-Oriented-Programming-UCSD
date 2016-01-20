@@ -1,6 +1,8 @@
 1. 注意在做binary search的时候，再计算mid时，要避免Overflow的情况出现。注意代码应该怎么写。 mid = start + ((end-start) >> 1)
 
-2. 选择排序selection sort
+2. 选择排序selection sort, 外层循环用于表示每次选择的最小的数要放在哪个index处，因此 i 最大到 vals.length - 2即可，因为之后只剩下一个
+元素在最后，它就是后续中最小的了。循环过程中，i之前的部分实际上都是已经sorted好的了！内层循环，用于遍历从i到末尾所有元素，记录并更新最小的那个
+index, 然后找到最小的index后，进行SWAP，放置在i处。
 
 	/** Sort an array of ints using Selection Sort */
 	public static void selectionSort( int[] vals )   {
@@ -20,7 +22,9 @@
 		
 	}
 
-3. 插入排序 insertion sort
+3. 插入排序 insertion sort, 外层循环从 pos = 1开始，一直到末尾，用于表示每一次待插入的元素！因为 pos = 0的元素为第一个元素，所以它不需要
+往前插入，因此pos从1开始。内层循环，通过前后两个元素的大小关系，进行比较，再进行SWAP，从而将 pos处的元素，插入到相应位置（其实是通过SWAP完成）
+，且这个过程当中，之前的元素的相对顺序不变，还是保持sorted的！！
 
 	public static void mysterySort( int[] vals )    {
 		  int currInd;
@@ -45,8 +49,12 @@ merge sort是一种稳定排序算法，而quick sort不是稳定排序算法。
 
 	}
 	比如对于Integer, 我们可以在eclipse里看到Integer类是实现了Comparable接口的！！！
-	
-方法2：
 
+方法2:
+	通过自定义实现比较器类，然后implements Comparator<Type>接口，然后override如下方法
+	public int compare(Type o1, Type o2){
 
+	}
+
+6. 
 
