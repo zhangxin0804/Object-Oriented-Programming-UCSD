@@ -9,6 +9,11 @@ Find next smallest element(the rest of array), swap it with element in location 
 ....
 ....
 
+Pseudo Code:
+	For each position i from 0 to length-2
+		Find smallest element in positions i to length - 1
+		Swap it with element in position i
+
 	/** Sort an array of ints using Selection Sort */
 	public static void selectionSort( int[] vals )   {
 		
@@ -30,6 +35,10 @@ Find next smallest element(the rest of array), swap it with element in location 
 3. 插入排序 insertion sort, 外层循环从 pos = 1开始，一直到末尾，用于表示每一次待插入的元素！因为 pos = 0的元素为第一个元素，所以它不需要
 往前插入，因此pos从1开始。内层循环，通过前后两个元素的大小关系，进行比较，再进行SWAP，从而将 pos处的元素，插入到相应位置（其实是通过SWAP完成）
 ，且这个过程当中，之前的元素的相对顺序不变，还是保持sorted的！！
+
+For each position i from i to length-1
+	Find correct location of ith element relative to first i-1
+	Swap successive pairs to get there
 
 	public static void mysterySort( int[] vals )    {
 		  int currInd;
