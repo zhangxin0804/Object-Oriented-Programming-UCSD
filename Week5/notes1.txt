@@ -33,3 +33,20 @@
 		    }
 		  }
 		}
+
+4. 注意！！！Java的一些built-in的排序算法，比如Arrays.sort()和Collections.sort(), 内部的实现都是merge sort.
+merge sort是一种稳定排序算法，而quick sort不是稳定排序算法。
+
+5. 对于一般的customized的类来说，他们的对象是不能够直接用Arrays.sort()或者Collections.sort()的！！！！有两种方法，可以解决。
+
+方法1：
+	对这些用户自定义的类，让他们implements Comparable<Type>接口，然后override如下方法
+	public int compareTo(Type o1){
+
+	}
+	比如对于Integer, 我们可以在eclipse里看到Integer类是实现了Comparable接口的！！！
+	
+方法2：
+
+
+
