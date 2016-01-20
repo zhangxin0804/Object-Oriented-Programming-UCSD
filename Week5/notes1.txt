@@ -4,6 +4,11 @@
 元素在最后，它就是后续中最小的了。循环过程中，i之前的部分实际上都是已经sorted好的了！内层循环，用于遍历从i到末尾所有元素，记录并更新最小的那个
 index, 然后找到最小的index后，进行SWAP，放置在i处。
 
+Find smallest element, swap it with element in location0
+Find next smallest element(the rest of array), swap it with element in location 1
+....
+....
+
 	/** Sort an array of ints using Selection Sort */
 	public static void selectionSort( int[] vals )   {
 		
